@@ -60,7 +60,7 @@ export default function Hero() {
       <motion.div 
         style={{ opacity }}
         ref={textRef} 
-        className="relative z-10 flex flex-col items-center justify-center text-center px-4 max-w-5xl mx-auto mt-20"
+        className="relative z-10 flex flex-col items-center justify-center text-center px-4 max-w-5xl mx-auto"
       >
         <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight leading-none mb-8 text-white overflow-hidden">
           {["Every", "Frame", "Holds", "A", "Story."].map((word, i) => (
@@ -84,7 +84,7 @@ export default function Hero() {
         </div>
       </motion.div>
 
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50 animate-pulse z-10">
+      <div className="hidden sm:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2 text-white/50 animate-pulse z-10">
         <span className="text-[10px] uppercase tracking-widest">Scroll to explore</span>
         <div className="w-[1px] h-12 bg-gradient-to-b from-white/50 to-transparent" />
       </div>
