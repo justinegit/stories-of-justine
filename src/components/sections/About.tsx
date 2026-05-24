@@ -59,12 +59,12 @@ export default function About() {
         </div>
 
         {/* Image Content */}
-        <div className="order-1 lg:order-2 h-[60vh] lg:h-[80vh] w-full relative overflow-hidden rounded-sm about-image-container">
+        <div className="order-1 lg:order-2 h-[50vh] md:h-[60vh] lg:h-[80vh] w-full relative overflow-hidden rounded-sm about-image-container">
           <Image
             src="/founder_potrait.jpeg"
             alt="Justine Paulson"
             fill
-            className="about-image object-cover grayscale-[30%] hover:grayscale-0 transition-all duration-1000"
+            className="about-image object-cover object-top grayscale-[30%] hover:grayscale-0 transition-all duration-1000"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#050505] to-transparent opacity-60"></div>
         </div>
