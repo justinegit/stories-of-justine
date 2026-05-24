@@ -11,25 +11,24 @@ export default function BehindTheScenes() {
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top",
+          end: "+=150%",
+          pin: true,
+          scrub: 1,
+        }
+      });
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top top",
-        end: "+=150%",
-        pin: true,
-        scrub: 1,
-      }
-    });
+      tl.to(scrollRef.current, {
+        xPercent: -50,
+        ease: "none"
+      });
+    }, containerRef);
 
-    tl.to(scrollRef.current, {
-      xPercent: -50,
-      ease: "none"
-    });
-
-    return () => {
-      ScrollTrigger.getAll().forEach(t => t.kill());
-    };
+    return () => ctx.revert();
   }, []);
 
   return (
