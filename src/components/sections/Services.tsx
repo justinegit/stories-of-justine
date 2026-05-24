@@ -7,7 +7,6 @@ const services = [
   "Couple Shoots",
   "Portrait Photography",
   "Brand Storytelling",
-  "Drone Cinematography",
   "Social Media Reels",
   "Editing & Color Grading",
 ];
