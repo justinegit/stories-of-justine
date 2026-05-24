@@ -1,16 +1,15 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowUpRight } from "lucide-react";
+import Script from "next/script";
 
-const projects = [
-  { id: 1, title: "The Forest Vows", category: "Weddings", img: "/wedding_portfolio.png", span: "md:col-span-2 md:row-span-2" },
-  { id: 2, title: "Midnight Drive", category: "Commercial Films", img: "/commercial_portfolio.png", span: "col-span-1 row-span-1" },
-  { id: 3, title: "Silent Echoes", category: "Portraits", img: "/founder_potrait.jpeg", span: "col-span-1 row-span-1" },
-  { id: 4, title: "Ethereal Light", category: "Couple Stories", img: "/hero_cinematic.png", span: "md:col-span-2 row-span-1" },
+const igPosts = [
+  { id: 1, type: "Wedding Reel", link: "https://www.instagram.com/reel/DYJ_IMyRnwO/" },
+  { id: 2, type: "Cafe Commercial", link: "https://www.instagram.com/reel/DNbMP8Tz1dF/" },
+  { id: 3, type: "Wedding Photo", link: "https://www.instagram.com/p/DVJDCE-kQKg/" },
 ];
 
 export default function Portfolio() {
@@ -19,8 +18,9 @@ export default function Portfolio() {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     
+    // Initialize animations
     const items = gsap.utils.toArray(".portfolio-item");
-    items.forEach((item: any, i) => {
+    items.forEach((item: any) => {
       gsap.fromTo(
         item,
         { opacity: 0, y: 50 },
@@ -38,6 +38,11 @@ export default function Portfolio() {
       );
     });
 
+    // Re-process Instagram embeds on mount if script is already loaded
+    if (typeof window !== "undefined" && (window as any).instgrm) {
+      (window as any).instgrm.Embeds.process();
+    }
+
     return () => {
       ScrollTrigger.getAll().forEach(t => t.kill());
     };
@@ -51,37 +56,40 @@ export default function Portfolio() {
             <h2 className="font-serif text-4xl md:text-5xl text-white tracking-wider uppercase">Featured Stories</h2>
             <p className="font-sans text-gray-400 mt-4 text-sm tracking-widest uppercase">Timeless moments frozen in frames</p>
           </div>
-          <button className="text-xs uppercase tracking-widest text-[#d1b894] hover:text-white transition-colors duration-300 flex items-center gap-2">
-            View All Projects <ArrowUpRight size={14} />
-          </button>
+          <a href="https://www.instagram.com/storiesofjustine/" target="_blank" rel="noopener noreferrer" className="text-xs uppercase tracking-widest text-[#d1b894] hover:text-white transition-colors duration-300 flex items-center gap-2">
+            View Instagram <ArrowUpRight size={14} />
+          </a>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 auto-rows-[300px] gap-4 md:gap-6 px-4">
-          {projects.map((project) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-4 justify-items-center">
+          {igPosts.map((post) => (
             <div 
-              key={project.id} 
-              className={`portfolio-item relative group overflow-hidden bg-[#111] rounded-sm cursor-pointer ${project.span}`}
+              key={post.id} 
+              className="portfolio-item w-full max-w-[540px] flex flex-col items-center"
             >
-              <Image
-                src={project.img}
-                alt={project.title}
-                fill
-                className="object-cover transition-transform duration-1000 group-hover:scale-105 opacity-80 group-hover:opacity-100"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
-              
-              <div className="absolute bottom-0 left-0 w-full p-8 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                <span className="text-[#d1b894] text-xs uppercase tracking-widest font-semibold mb-2 block opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-                  {project.category}
-                </span>
-                <h3 className="font-serif text-2xl md:text-3xl text-white tracking-wide">
-                  {project.title}
-                </h3>
-              </div>
+              <h3 className="text-[#d1b894] text-xs uppercase tracking-widest font-semibold mb-6">{post.type}</h3>
+              <blockquote 
+                className="instagram-media" 
+                data-instgrm-permalink={`${post.link}?utm_source=ig_embed&amp;utm_campaign=loading`} 
+                data-instgrm-version="14" 
+                style={{ background: '#FFF', border: 0, borderRadius: '3px', boxShadow: '0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15)', margin: '1px', maxWidth: '540px', minWidth: '326px', padding: 0, width: '100%' }}
+              >
+              </blockquote>
             </div>
           ))}
         </div>
       </div>
+      
+      {/* Load Instagram Embed Script */}
+      <Script 
+        src="//www.instagram.com/embed.js" 
+        strategy="lazyOnload" 
+        onLoad={() => {
+          if (typeof window !== "undefined" && (window as any).instgrm) {
+            (window as any).instgrm.Embeds.process();
+          }
+        }}
+      />
     </section>
   );
 }
