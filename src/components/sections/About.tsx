@@ -61,7 +61,7 @@ export default function About() {
         {/* Image Content */}
         <div className="order-1 lg:order-2 h-[60vh] lg:h-[80vh] w-full relative overflow-hidden rounded-sm about-image-container">
           <Image
-            src="/founder_portrait.png"
+            src="/founder_potrait.jpeg"
             alt="Justine Paulson"
             fill
             className="about-image object-cover grayscale-[30%] hover:grayscale-0 transition-all duration-1000"

@@ -9,7 +9,7 @@ import { ArrowUpRight } from "lucide-react";
 const projects = [
   { id: 1, title: "The Forest Vows", category: "Weddings", img: "/wedding_portfolio.png", span: "md:col-span-2 md:row-span-2" },
   { id: 2, title: "Midnight Drive", category: "Commercial Films", img: "/commercial_portfolio.png", span: "col-span-1 row-span-1" },
-  { id: 3, title: "Silent Echoes", category: "Portraits", img: "/founder_portrait.png", span: "col-span-1 row-span-1" },
+  { id: 3, title: "Silent Echoes", category: "Portraits", img: "/founder_potrait.jpeg", span: "col-span-1 row-span-1" },
   { id: 4, title: "Ethereal Light", category: "Couple Stories", img: "/hero_cinematic.png", span: "md:col-span-2 row-span-1" },
 ];
 
